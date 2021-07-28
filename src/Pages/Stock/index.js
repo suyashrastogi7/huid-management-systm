@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Stock = () => {
 
     const jewellery_type = ['Choose Item','Plain Gold Jewellery', 'Plain Gold Jewellery with Stones']
-    const product_type = ['Choose Item','Bangle','Bracelet','Chain','Earrings','Finger Rings',
+    const product_type = ['Choose Item','Anklet','Bangle','Bracelet','Chain','Earrings','Finger Rings',
         'Gold Coin','Haram','Jewellery Set','Kada','Maang Teeka','Mangalsutra',
         'Mangalsutra Set','Neckwear','Nose Pin','Pendant','Pendant and Earrings Set',
         'Pendant with Chain','Pendant With chain and Earring Set','Silver Coin', 'Waist Belt']
@@ -29,6 +29,7 @@ const Stock = () => {
     const pendant_width = ['Choose Item','10 mm','12 mm','13 mm','15 mm','16 mm','17 mm']
     const earring_height = ['Choose Item','10 mm','11 mm','12 mm','13 mm','14 mm']
     const earring_width = ['Choose Item','10 mm','11 mm','12 mm','13 mm','14 mm']
+    const units = ['Gram', 'Ounce', 'Kilo', 'Tola', 'Masha', 'Ratti']
 
     const [jewelleryType, setJewelleryType] = useState('');
     const [productType, setproductType] = useState('');
@@ -50,8 +51,7 @@ const Stock = () => {
     const [huid, setHuid] = useState('');
     const [goldWeight, setGoldWeight] = useState('');
     const [SilverWeight, setSilverWeight] = useState('');
-
-
+    const [platinumWeight, setPlatinumWeight] = useState('');
 
     const data = {
         huid : huid,
@@ -73,11 +73,31 @@ const Stock = () => {
         earringHeight : earringHeight,
         earringWidth : earringWidth,
         goldWeight : goldWeight, 
-        silverWeight : SilverWeight
+        silverWeight : SilverWeight,
+        platinumWeight : platinumWeight
     }
 
-    const handleSubmit = (data) => {
-        console.log(data)
+    const handleSubmit = async (data) => {
+        await fetch('localhost:5000/stock', { 
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        });
+        
     }
     const handleReset = () => {
         
@@ -100,7 +120,7 @@ const Stock = () => {
                                 <div className='field-body '>
                                     <div className="field ">
                                       <p className="control is-expanded has-icons-left">
-                                        <input className="input" type="text" placeholder="Hallmark UID" value={huid} onChange={e => setHuid(e.target.value)} />
+                                        <input className="input" required type="text" placeholder="Hallmark UID" value={huid} onChange={e => setHuid(e.target.value)} />
                                         <span className="icon is-small is-left">
                                             <FontAwesomeIcon icon={faIdCard} />
                                         </span>
@@ -184,6 +204,34 @@ const Stock = () => {
                                 </div>
                             </div>
                             <div className='columns is-multiline'>
+                            <div className='column'>
+                                    <div className="is-normal my-3">
+                                        <label className="label">Metal :</label>
+                                    </div>
+                                    <div className='select'>
+                                        <select onChange={e => setMetal(e.target.value)} value={Metal}>
+                                            {metal.map((item, i) => {
+                                                return(
+                                                    <option value={item} key={i}>{item}</option>
+                                                )
+                                            })} 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className='column'>
+                                    <div className="is-normal my-3">
+                                        <label className="label">Community Type :</label>
+                                    </div>
+                                    <div className='select'>
+                                        <select onChange={e => setCommunityType(e.target.value)} value={CommunityType}>
+                                            {community_type.map((item, i) => {
+                                                return(
+                                                    <option value={item} key={i}>{item}</option>
+                                                )
+                                            })} 
+                                        </select>
+                                    </div>
+                                </div>
                                 <div className='column'>
                                     <div className="is-normal my-3">
                                         <label className="label">Bangles Size :</label>
@@ -240,36 +288,7 @@ const Stock = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className='column'>
-                                    <div className="is-normal my-3">
-                                        <label className="label">Metal :</label>
-                                    </div>
-                                    <div className='select'>
-                                        <select onChange={e => setMetal(e.target.value)} value={Metal}>
-                                            {metal.map((item, i) => {
-                                                return(
-                                                    <option value={item} key={i}>{item}</option>
-                                                )
-                                            })} 
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className='column'>
-                                    <div className="is-normal my-3">
-                                        <label className="label">Community Type :</label>
-                                    </div>
-                                    <div className='select'>
-                                        <select onChange={e => setCommunityType(e.target.value)} value={CommunityType}>
-                                            {community_type.map((item, i) => {
-                                                return(
-                                                    <option value={item} key={i}>{item}</option>
-                                                )
-                                            })} 
-                                        </select>
-                                    </div>
-                                </div>
                                 
-
                             </div>
                             <div className='columns'>
                                 <div className='column'>
@@ -366,14 +385,14 @@ const Stock = () => {
                                   <div className="field-body">
                                     <div className="field">
                                       <p className="control">
-                                        <input className="input" type="email" placeholder="Gold Weight" value={goldWeight} onChange={e => setGoldWeight(e.target.value)} />
+                                        <input className="input" disabled={Metal !== 'Gold'} type="email" placeholder="Gold Weight" value={goldWeight} onChange={e => setGoldWeight(e.target.value)} />
                                       </p>
                                     </div>
                                     <div className='select'>
-                                        <select>
-                                            <option>Grams</option>
-                                            <option>Tola</option>
-                                            <option>Troy Ounce</option>
+                                    <select>
+                                            {units.map((item ,i) => {
+                                                return(<option key={i} value={item}>{item}</option>)
+                                            })}
                                         </select>
                                     </div>
                                   </div>
@@ -385,14 +404,33 @@ const Stock = () => {
                                   <div className="field-body">
                                     <div className="field">
                                       <p className="control">
-                                        <input className="input" type="email" placeholder="Silver Weight" value={SilverWeight} onChange={e => setSilverWeight(e.target.value)} />
+                                        <input className="input" disabled={Metal !== 'Silver'} type="email" placeholder="Silver Weight" value={SilverWeight} onChange={e => setSilverWeight(e.target.value)} />
+                                      </p>
+                                    </div>
+                                    <div className='select'>
+                                    <select>
+                                            {units.map((item ,i) => {
+                                                return(<option key={i} value={item}>{item}</option>)
+                                            })}
+                                        </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="field is-horizontal">
+                                  <div className="field-label is-normal">
+                                    <label className="label">Platinum Wt : </label>
+                                  </div>
+                                  <div className="field-body">
+                                    <div className="field">
+                                      <p className="control">
+                                        <input className="input" disabled={Metal !== 'Platinum'} type="email" placeholder="Platinum Weight" value={platinumWeight} onChange={e => setPlatinumWeight(e.target.value)} />
                                       </p>
                                     </div>
                                     <div className='select'>
                                         <select>
-                                            <option>Grams</option>
-                                            <option>Tola</option>
-                                            <option>Troy Ounce</option>
+                                            {units.map((item ,i) => {
+                                                return(<option key={i} value={item}>{item}</option>)
+                                            })}
                                         </select>
                                     </div>
                                   </div>
