@@ -43,7 +43,7 @@ const Dashboard = () => {
             <Header />
             <div className='is-flex'>
             <Navbar />
-                <div className="has-background-light p-6" style={{height : '85vh',overflowY : 'scroll'}} >
+                <div className="has-background-light p-6" style={{height : '88vh',overflowY : 'scroll'}} >
                     <div className='columns is-multiline is-variable is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd' >
                         <div className='column is-half box my-3 mx-4 p-5'>
                             <h1 className='is-size-5 has-text-weight-semibold'>Sales Overview</h1>
@@ -157,7 +157,8 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className='column is-one-third box my-3 mx-4 p-5'>
-                            <h1 className='is-size-5 has-text-weight-semibold'>Product Details</h1>
+                            <h1 className='is-size-5 has-text-weight-semibold'>Exchange Rates</h1>
+                            
                         </div>
                         <div className='column  box my-3 mx-4 p-5'>
                             <h1 className='is-size-5 has-text-weight-semibold mb-2'>Number of Users</h1>

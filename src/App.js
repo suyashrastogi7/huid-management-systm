@@ -28,7 +28,7 @@ import Settings from './Pages/Settings'
 class App extends Component {
   render() {
     return (
-      <div className="App" style={{overflowY : 'hidden', height : '96vh', overflowX : 'hidden'}}>
+      <div className="App" style={{overflowY : 'hidden', height : '99vh', overflowX : 'hidden'}}>
         <Router>
           <Switch>
             <Route path="/login">
