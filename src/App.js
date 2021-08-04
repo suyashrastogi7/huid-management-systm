@@ -5,6 +5,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import { PDFViewer } from '@react-pdf/renderer';
+
 import '../node_modules/bulma/css/bulma.css'
 
 //Pages
@@ -23,9 +25,13 @@ import Stock from './Pages/Stock'
 import Suppliers from './Pages/Suppliers'
 import Taxes from './Pages/Taxes'
 import Settings from './Pages/Settings'
+import Biller from './Components/Biller'
 
 
 class App extends Component {
+
+  
+
   render() {
     return (
       <div className="App" style={{overflowY : 'hidden', height : '99vh', overflowX : 'hidden'}}>
@@ -75,6 +81,11 @@ class App extends Component {
             </Route>
             <Route path="/settings">
               <Settings /> 
+            </Route>
+            <Route path="/biller">
+              <PDFViewer width='1500px' height='1520px'>
+                <Biller />
+              </PDFViewer>
             </Route>
           </Switch>
         </Router>

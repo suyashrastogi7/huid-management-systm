@@ -3,6 +3,8 @@ import React from 'react'
 //Components
 import Navbar from '../../Components/Navbar'
 import Header from '../../Components/Header'
+import Biller from '../../Components/Biller'
+import {PDFDownloadLink} from '@react-pdf/renderer'
 
 const Bill = () => {
     return(
@@ -10,9 +12,16 @@ const Bill = () => {
             <Header />
             <div className='is-flex'>
                 <Navbar />
-                <div class="column has-background-light">
-                    <div class="block">
-                      <h1>This is Bills</h1>
+                <div className="column has-background-light">
+                    <div className="block">
+                        <div className='box py-5'>
+                            <h1 className='is-size-5 has-text-weight-bold'>All Bills</h1>
+                            <PDFDownloadLink document={<Biller />} fileName="somename.pdf">
+                                {({ blob, url, loading, error }) =>
+                                  loading ? 'Loading document...' : 'Download now!'
+                                }
+                            </PDFDownloadLink>
+                        </div>
                     </div>
                     
                 </div>

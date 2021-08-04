@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-
 //Components
 import Navbar from '../../Components/Navbar'
 import Header from '../../Components/Header'
@@ -20,7 +19,8 @@ const Sales = () => {
     const [huid, setHuid] = useState('');
     const [gold_rate, setGoldRate] = useState('');
     const [discount, setDiscount] = useState('');
-    const [customer_name, setCustomerName] = useState('');
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
     const [phone, setCustomerPhone] = useState('');
     const [pan_number, setPanNumber] = useState('');
     const [payment_method, setPaymentMethod] = useState('');
@@ -34,8 +34,20 @@ const Sales = () => {
     }
 
     const handleAddSale = () => {
+        // const data = {
+        //     huid : huid,
+        //     gold_rate : gold_rate,
+        //     discount : discount,
+        //     first_name : first_name,
+        //     last_name : last_name,
+        //     phone : phone,
+        //     pan_number : pan_number,
+        //     payment_amount : payment_amount,
+        //     payment_method : payment_method
+        // }
         //delete Item from Inventory
         //send data to create invoice
+        
         //add this item top sold list
         //add Customer to Customers Database if does not exist
         //add to order Details
@@ -46,8 +58,8 @@ const Sales = () => {
             <Header />
             <div className='is-flex'>
                 <Navbar />
-                <div class="column has-background-light">
-                    <div class="block">
+                <div className="column has-background-light">
+                    <div className="block">
                         <div className='box'>
                             <h1 className='is-size-5 has-text-weight-bold'>Add a Sale</h1>
                             <div className='columns py-4'>
@@ -105,14 +117,14 @@ const Sales = () => {
                             
                             <h1 className='is-size-5 has-text-weight-bold'>Add Customer Details</h1>
                             <div className='columns py-4'>
-                                <div className='field column is-one-third'>
+                                <div className='field column'>
                                     <div className="is-normal">
-                                        <label className="label">Customer Name :</label>
+                                        <label className="label">First Name :</label>
                                     </div>
                                     <div className='field-body'>
                                         <div className="field">
                                           <p className="control is-expanded has-icons-left">
-                                            <input className="input" required type="text" placeholder="Customer Name" value={customer_name} onChange={e => setCustomerName(e.target.value)} />
+                                            <input className="input" required type="text" placeholder="First Name" value={first_name} onChange={e => setFirstName(e.target.value)} />
                                             <span className="icon is-small is-left">
                                                 <FontAwesomeIcon icon={faUser} />
                                             </span>
@@ -120,7 +132,22 @@ const Sales = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='field column is-one-third'>
+                                <div className='field column'>
+                                    <div className="is-normal">
+                                        <label className="label">Last Name :</label>
+                                    </div>
+                                    <div className='field-body'>
+                                        <div className="field">
+                                          <p className="control is-expanded has-icons-left">
+                                            <input className="input" required type="text" placeholder="Last Name" value={last_name} onChange={e => setLastName(e.target.value)} />
+                                            <span className="icon is-small is-left">
+                                                <FontAwesomeIcon icon={faUser} />
+                                            </span>
+                                          </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='field column'>
                                     <div className="is-normal ">
                                         <label className="label">Phone Number :</label>
                                     </div>
@@ -136,7 +163,7 @@ const Sales = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='field column is-one-third'>
+                                <div className='field column'>
                                     <div className="is-normal  ">
                                         <label className="label">Pan Card :</label>
                                     </div>
