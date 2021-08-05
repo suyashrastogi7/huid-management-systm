@@ -26,6 +26,7 @@ import Suppliers from './Pages/Suppliers'
 import Taxes from './Pages/Taxes'
 import Settings from './Pages/Settings'
 import Biller from './Components/Biller'
+import CompanyInfo  from './Pages/CompanyInfo';
 
 
 class App extends Component {
@@ -39,6 +40,9 @@ class App extends Component {
           <Switch>
             <Route path="/login">
               <Login /> 
+            </Route>
+            <Route path="/company">
+              <CompanyInfo /> 
             </Route>
             <Route exact path="/">
               <Dashboard />
