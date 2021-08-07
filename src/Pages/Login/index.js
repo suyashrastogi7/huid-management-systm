@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import { useHistory } from 'react-router'
 //Components
 
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const Login = () => {
+
+    let history = useHistory();
 
     const [isLogin, setIsLogin] = useState(true);
 
@@ -60,6 +62,7 @@ const Login = () => {
         })
         .then(res => {
             console.log(res)
+            history.push('/company')
         })
         .catch(err => {
             console.log(err)

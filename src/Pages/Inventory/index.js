@@ -53,7 +53,7 @@ const Inventory = () => {
                       </div>
                   </div>
                   <div className='hero has-background-white'>
-                  <table class="table">
+                  <table class="table is-striped">
                       <thead>
                           <tr>
                             <th><abbr title="Position">Pos</abbr></th>

@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 //Components
 import Navbar from '../../Components/Navbar'
 import Header from '../../Components/Header'
+import BarcodeReader from 'react-barcode-reader'
 
 import { faIdCard } from '@fortawesome/free-solid-svg-icons'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -67,6 +68,10 @@ const Sales = () => {
                                     <div className="is-normal">
                                         <label className="label">Hallmark UID of Item Sold :</label>
                                     </div>
+                                    <BarcodeReader
+                                        onError={err => console.log(err)}
+                                        onScan={data => setHuid(data)}
+                                    />
                                     <div className='field-body '>
                                         <div className="field ">
                                           <p className="control is-expanded has-icons-left">
