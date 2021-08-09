@@ -34,7 +34,7 @@ const Navbar = () => {
                 <ul className="menu-list">
                   <li className='px-5 py-1'><a href='/purchase'><FontAwesomeIcon className='mx-2' icon={faShoppingBag} color='#38305f'/>Purchase</a></li>
                   <li className='px-5 py-1'><a href='/suppliers'><FontAwesomeIcon className='mx-2' icon={faTruck} color='#38305f'/>Supplier</a></li>
-                  <li className='px-5 py-1'><a href='/invoice'><FontAwesomeIcon className='mx-2' icon={faReceipt} color='#38305f'/>Invoice</a></li>
+                  <li className='px-5 py-1'><a href='/invoice'><FontAwesomeIcon className='mx-2' icon={faReceipt} color='#38305f'/>Raw Stock</a></li>
                   <li className='px-5 py-1'><a href='/bill'><FontAwesomeIcon className='mx-2' icon={faFileInvoiceDollar} color='#38305f'/>Bill</a></li>
                   <li className='px-5 py-1'><a href='/sales'><FontAwesomeIcon className='mx-2' icon={faChartLine} color='#38305f'/>Sales</a></li>
                 </ul>
