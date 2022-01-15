@@ -30,9 +30,6 @@ import CompanyInfo  from './Pages/CompanyInfo';
 
 
 class App extends Component {
-
-  
-
   render() {
     return (
       <div className="App" style={{overflowY : 'hidden', height : '99vh', overflowX : 'hidden'}}>
