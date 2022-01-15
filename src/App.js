@@ -1,90 +1,88 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { PDFViewer } from '@react-pdf/renderer';
+import { PDFViewer } from "@react-pdf/renderer";
 
-import '../node_modules/bulma/css/bulma.css'
+import "../node_modules/bulma/css/bulma.css";
 
 //Pages
-import Bill from './Pages/Bill'
-import Customers from './Pages/Customers'
-import Dashboard from './Pages/Dashboard'
-import Inventory from './Pages/Inventory'
-import Invoice from './Pages/Invoice'
-import Login from './Pages/Login'
-import OrderDetails from './Pages/Order-details'
-import Products from './Pages/Products'
-import Purchase from './Pages/Purchase'
-import Reports from './Pages/Reports'
-import Sales from './Pages/Sales'
-import Stock from './Pages/Stock'
-import Suppliers from './Pages/Suppliers'
-import Taxes from './Pages/Taxes'
-import Settings from './Pages/Settings'
-import Biller from './Components/Biller'
-import CompanyInfo  from './Pages/CompanyInfo';
-
+import Bill from "./Pages/Bill";
+import Customers from "./Pages/Customers";
+import Dashboard from "./Pages/Dashboard";
+import Inventory from "./Pages/Inventory";
+import Invoice from "./Pages/Invoice";
+import Login from "./Pages/Login";
+import OrderDetails from "./Pages/Order-details";
+import Products from "./Pages/Products";
+import Purchase from "./Pages/Purchase";
+import Reports from "./Pages/Reports";
+import Sales from "./Pages/Sales";
+import Stock from "./Pages/Stock";
+import Suppliers from "./Pages/Suppliers";
+import Taxes from "./Pages/Taxes";
+import Settings from "./Pages/Settings";
+import Biller from "./Components/Biller";
+import CompanyInfo from "./Pages/CompanyInfo";
 
 class App extends Component {
   render() {
     return (
-      <div className="App" style={{overflowY : 'hidden', height : '99vh', overflowX : 'hidden'}}>
+      <div
+        className="App"
+        style={{ overflowY: "hidden", height: "99vh", overflowX: "hidden" }}
+      >
         <Router>
           <Switch>
             <Route path="/login">
-              <Login /> 
+              <Login />
             </Route>
             <Route path="/company">
-              <CompanyInfo /> 
+              <CompanyInfo />
             </Route>
             <Route exact path="/">
               <Dashboard />
             </Route>
             <Route path="/bill">
-              <Bill /> 
+              <Bill />
             </Route>
             <Route path="/customers">
-              <Customers /> 
+              <Customers />
             </Route>
             <Route path="/inventory">
-              <Inventory /> 
+              <Inventory />
             </Route>
-            <Route path="/invoice">
-              <Invoice /> 
+            <Route path="/raw-stock">
+              <Invoice />
             </Route>
             <Route path="/Order-details">
-              <OrderDetails /> 
+              <OrderDetails />
             </Route>
             <Route path="/products">
-              <Products /> 
+              <Products />
             </Route>
             <Route path="/purchase">
-              <Purchase /> 
+              <Purchase />
             </Route>
             <Route path="/reports">
-              <Reports /> 
+              <Reports />
             </Route>
             <Route path="/sales">
-              <Sales /> 
+              <Sales />
             </Route>
             <Route path="/suppliers">
-              <Suppliers /> 
+              <Suppliers />
             </Route>
             <Route path="/taxes">
-              <Taxes /> 
+              <Taxes />
             </Route>
             <Route path="/stock">
-              <Stock /> 
+              <Stock />
             </Route>
             <Route path="/settings">
-              <Settings /> 
+              <Settings />
             </Route>
             <Route path="/biller">
-              <PDFViewer width='1500px' height='1520px'>
+              <PDFViewer width="1500px" height="1520px">
                 <Biller />
               </PDFViewer>
             </Route>

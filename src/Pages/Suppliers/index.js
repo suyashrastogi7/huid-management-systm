@@ -38,7 +38,7 @@ const Suppliers = () => {
       }
     };
     getData();
-  });
+  }, []);
 
   const addElement = async (e) => {
     e.preventDefault();
