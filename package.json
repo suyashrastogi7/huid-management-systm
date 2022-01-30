@@ -36,6 +36,7 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "dev": "nf start -p 3000",
-    "watch": "nodemon --exec electron ."
+    "watch": "nodemon --exec electron .",
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
   }
 }
