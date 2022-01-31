@@ -43,14 +43,15 @@ const Sales = () => {
   const handleAddSale = async () => {
     const data = {
       huid: huid,
-      gold_rate: gold_rate,
+      goldRate: gold_rate,
       discount: discount,
-      first_name: first_name,
-      last_name: last_name,
-      phone: phone,
-      pan_number: pan_number,
-      payment_amount: payment_amount,
-      payment_method: payment_method,
+      CustomerFirstName: first_name,
+      CustomerLastName: last_name,
+      CustomerPhoneNumber: phone,
+      CustomerPancard: pan_number,
+      paymentAmount: payment_amount,
+      paymentMethod: payment_method,
+      date: new Date().toString(),
     };
     //delete Item from Inventory
     const res = await fetch("http://localhost:5000/delete-inventory", {
@@ -63,37 +64,52 @@ const Sales = () => {
       }),
     });
     const resultDelete = await res.json();
+    if (resultDelete.status) {
+      const result = await fetch("http://localhost:5000/customer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const response = await result.json();
+      if (!response.CustomerPhoneNumber) {
+        const res = await fetch("http://localhost:5000/customer/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            CustomerFirstName: first_name,
+            CustomerLastName: last_name,
+            CustomerPhoneNumber: phone,
+            CustomerPancard: pan_number,
+          }),
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert("New Customer Added Successfully");
+        }
+      }
+    }
     //send data to create invoice
     //send data to create payment
 
     //add this item top sold list
-    //add Customer to Customers Database if does not exist
-    const result = await fetch("http://localhost:5000/customer", {
+    const res1 = await fetch("http://localhost:5000/add-sold-list", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    const response = await result.json();
-    if (!response.CustomerPhoneNumber) {
-      const res = await fetch("http://localhost:5000/customer/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          CustomerFirstName: first_name,
-          CustomerLastName: last_name,
-          CustomerPhoneNumber: phone,
-          CustomerPancard: pan_number,
-        }),
-      });
-      const result = await res.json();
-      if (result.success) {
-        alert("New Customer Added Successfully");
-      }
+    const result1 = await res1.json();
+    if (result1.status) {
+      alert("Sale Added Successfull");
+    } else {
+      alert("Sale Failed");
     }
+    //add Customer to Customers Database if does not exist
 
     //add to order Details
   };
