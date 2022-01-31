@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: "20px",
     width: "100%",
+    height: "95vh",
   },
   header: {
     display: "flex",
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: "10px",
     color: "white",
-    textAlign: "center",
+    textAlign: "left",
     padding: "5px 5px",
     backgroundColor: "#112e59",
   },
@@ -78,8 +79,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginVertical: "10px",
-    textAlign: "center",
+    textAlign: "left",
     padding: "5px 5px",
+  },
+  table: {
+    borderBottom: "1px solid black",
+  },
+  cell: {
+    border: "1px solid black",
+  },
+  discount: {
+    fontSize: "12px",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottom: "1px solid black",
+    padding: "5px 5px",
+  },
+  percent: {
+    marginRight: "40px",
   },
 });
 
@@ -140,25 +158,61 @@ const Biller = ({ item, i }) => {
               <Text is="custom">PAN : {item.CustomerPancard}</Text>
             </View>
           </View>
-          <View is="custom">
+          <View is="custom" style={styles.table}>
             <View is="custom" style={styles.bill_headings}>
               <Text is="custom">S.No.</Text>
               <Text is="custom">ITEMS</Text>
-              <Text is="custom">Discount</Text>
+              <Text is="custom">Quantity</Text>
+              <Text is="custom">Rate</Text>
               <Text is="custom">Amount</Text>
             </View>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, i) => {
+            {item.huid.map((items, i) => {
               return (
                 <View is="custom" key={i} style={styles.bill_content}>
                   <Text is="custom">{i + 1}</Text>
-                  <Text is="custom">ITEMS</Text>
-                  <Text is="custom">Discount</Text>
+                  <Text is="custom">{items}</Text>
+                  <Text is="custom">1</Text>
+                  <Text is="custom">{item.goldRate}</Text>
                   <Text is="custom">Amount</Text>
                 </View>
               );
             })}
           </View>
+          <View is="custom" style={styles.discount}>
+            <Text>Discount : </Text>
+            <Text style={styles.percent}>{item.discount}%</Text>
+          </View>
+          <View is="custom" style={styles.discount}>
+            <Text>CGST : </Text>
+            <Text style={styles.percent}>5%</Text>
+          </View>
+          <View is="custom" style={styles.discount}>
+            <Text>SGST : </Text>
+            <Text style={styles.percent}>5%</Text>
+          </View>
+          <View is="custom" style={styles.discount}>
+            <Text>Labour : </Text>
+            <Text style={styles.percent}>3%</Text>
+          </View>
+          <View is="custom" style={styles.discount}>
+            <Text>Total Amount : </Text>
+            <Text style={styles.percent}>Rs. {item.paymentAmount}</Text>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: "0",
+              textAlign: "center",
+              fontSize: "10px",
+              borderTop: "1px solid black",
+            }}
+          >
+            <Text style={{ width: "100%", textAlign: "center" }}>
+              Thankyou for shopping, Patharia Jewellers
+            </Text>
+          </View>
         </View>
+        <View style={{ backgroundColor: "#112e59", height: "20px" }}></View>
       </Page>
     </Document>
   );

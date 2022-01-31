@@ -44,7 +44,15 @@ const OrderDetails = () => {
                     >
                       <div className="is-flex">
                         <span>{i + 1}</span>
-                        <p className="mx-5 has-text-weight-bold">{item.huid}</p>
+                        <div>
+                          {item.huid.map((id, j) => {
+                            return (
+                              <p key={j} className="mx-5 has-text-weight-bold">
+                                {id}
+                              </p>
+                            );
+                          })}
+                        </div>
                         <p className="mx-5">{dateFormat}</p>
                       </div>
                       <div>
