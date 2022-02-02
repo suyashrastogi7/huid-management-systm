@@ -74,6 +74,8 @@ const CompanyInfo = () => {
   const [phone_number, setPhoneNumber] = useState("");
   const [landline, setLandline] = useState("");
   const [state, setState] = useState("");
+  const [image, setImage] = useState("");
+
   const handleAddCompanyInfo = async () => {
     const details = {
       company_name: company_name,
@@ -90,6 +92,7 @@ const CompanyInfo = () => {
       website: website,
       phone_number: phone_number,
       landline: landline,
+      logo: image,
     };
     const res = await fetch("http://localhost:5000/companyinfo", {
       method: "POST",
@@ -100,11 +103,35 @@ const CompanyInfo = () => {
     });
     const data = await res.json();
     if (data.success) {
+      const put = await fetch("http://localhost:5000/first-login", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: localStorage.getItem("user").username,
+          first_login: false,
+        }),
+      });
+      const putData = await put.json();
+
       alert("Company Info Added Successfully");
       localStorage.setItem("company_details", details);
+      history.push("/");
     } else {
       alert("Try Again");
     }
+  };
+
+  const HandleImage = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = function () {
+      setImage(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
   };
 
   return (
@@ -147,7 +174,12 @@ const CompanyInfo = () => {
                   </div>
                   <div className="file">
                     <label className="file-label">
-                      <input className="file-input" type="file" name="resume" />
+                      <input
+                        className="file-input"
+                        onChange={(e) => HandleImage(e)}
+                        type="file"
+                        name="resume"
+                      />
                       <span className="file-cta">
                         <span className="file-icon">
                           <FontAwesomeIcon icon={faUpload} />

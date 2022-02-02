@@ -28,9 +28,18 @@ const Login = () => {
         password: password,
       }),
     })
-      .then((res) => {
-        console.log(res);
-        history.push("/");
+      .then(async (res) => {
+        const result = await res.json();
+        if (result.success === false) {
+          alert("Wrong Login Credentials");
+        } else {
+          if (result.first_login) {
+            localStorage.setItem("user", result);
+            history.push("/company");
+          } else {
+            history.push("/");
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -49,12 +58,13 @@ const Login = () => {
         username: username,
         password: password,
         email: email,
+        first_login: true,
       }),
     })
       .then(async (res) => {
         const response = await res.json();
         if (response.success) {
-          history.push("/company");
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -75,7 +85,7 @@ const Login = () => {
                       <label className="label">Username</label>
                       <div className="control has-icons-left">
                         <input
-                          type="email"
+                          type="text"
                           placeholder="e.g. patharia_jewellers"
                           value={username}
                           onChange={(e) => setUsername(e.target.value)}
