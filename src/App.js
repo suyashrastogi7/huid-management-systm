@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PDFViewer } from "@react-pdf/renderer";
 
 import "../node_modules/bulma/css/bulma.css";
+import Auth from "./Components/Auth";
 
 //Pages
 import Bill from "./Pages/Bill";
@@ -39,53 +40,55 @@ class App extends Component {
             <Route path="/company">
               <CompanyInfo />
             </Route>
-            <Route exact path="/">
-              <Dashboard />
-            </Route>
-            <Route path="/bill">
-              <Bill />
-            </Route>
-            <Route path="/customers">
-              <Customers />
-            </Route>
-            <Route path="/inventory">
-              <Inventory />
-            </Route>
-            <Route path="/raw-stock">
-              <Invoice />
-            </Route>
-            <Route path="/Order-details">
-              <OrderDetails />
-            </Route>
-            <Route path="/products">
-              <Products />
-            </Route>
-            <Route path="/purchase">
-              <Purchase />
-            </Route>
-            <Route path="/reports">
-              <Reports />
-            </Route>
-            <Route path="/sales">
-              <Sales />
-            </Route>
-            <Route path="/suppliers">
-              <Suppliers />
-            </Route>
-            <Route path="/taxes">
-              <Taxes />
-            </Route>
-            <Route path="/stock">
-              <Stock />
-            </Route>
-            <Route path="/settings">
-              <Settings />
-            </Route>
-            <Route path="/biller">
-              <PDFViewer width="1500px" height="1520px">
-                <Biller />
-              </PDFViewer>
-            </Route>
+            <Auth>
+              <Route exact path="/">
+                <Dashboard />
+              </Route>
+              <Route path="/bill">
+                <Bill />
+              </Route>
+              <Route path="/customers">
+                <Customers />
+              </Route>
+              <Route path="/inventory">
+                <Inventory />
+              </Route>
+              <Route path="/raw-stock">
+                <Invoice />
+              </Route>
+              <Route path="/Order-details">
+                <OrderDetails />
+              </Route>
+              <Route path="/products">
+                <Products />
+              </Route>
+              <Route path="/purchase">
+                <Purchase />
+              </Route>
+              <Route path="/reports">
+                <Reports />
+              </Route>
+              <Route path="/sales">
+                <Sales />
+              </Route>
+              <Route path="/suppliers">
+                <Suppliers />
+              </Route>
+              <Route path="/taxes">
+                <Taxes />
+              </Route>
+              <Route path="/stock">
+                <Stock />
+              </Route>
+              <Route path="/settings">
+                <Settings />
+              </Route>
+              <Route path="/biller">
+                <PDFViewer width="1500px" height="1520px">
+                  <Biller />
+                </PDFViewer>
+              </Route>
+            </Auth>
           </Switch>
         </Router>
       </div>

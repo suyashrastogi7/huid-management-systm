@@ -8,7 +8,6 @@ import { faCubes } from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
-import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 import { faTags } from "@fortawesome/free-solid-svg-icons";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faFileContract } from "@fortawesome/free-solid-svg-icons";
@@ -93,16 +92,7 @@ const Navbar = () => {
               Raw Stock
             </a>
           </li>
-          <li className="px-5 py-1">
-            <a href="/bill">
-              <FontAwesomeIcon
-                className="mx-2"
-                icon={faFileInvoiceDollar}
-                color="#38305f"
-              />
-              Bill
-            </a>
-          </li>
+
           <li className="px-5 py-1">
             <a href="/sales">
               <FontAwesomeIcon

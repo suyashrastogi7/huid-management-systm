@@ -24,12 +24,33 @@ const OrderDetails = () => {
   }, []);
   console.log(detail);
 
+  const handleDelete = async (item) => {
+    const res = await fetch("http://localhost:5000/delete-order", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        huid: item.huid,
+      }),
+    });
+    const result = await res.json();
+    if (result.status) {
+      alert("Successfully Deleted");
+    } else {
+      alert("Error while Deleting");
+    }
+  };
+
   return (
     <div>
       <Header />
       <div className="is-flex">
         <Navbar />
-        <div className="column has-background-light">
+        <div
+          className="column has-background-light"
+          style={{ height: "85vh", overflowY: "scroll" }}
+        >
           <div className="block">
             <div className="box">
               <h1 className="is-size-4 mb-5 has-text-weight-bold">Orders</h1>
@@ -66,7 +87,12 @@ const OrderDetails = () => {
                             }
                           </PDFDownloadLink>
                         </button>
-                        <button className="button is-danger">Delete</button>
+                        <button
+                          onClick={() => handleDelete(item.huid)}
+                          className="button is-danger"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   );

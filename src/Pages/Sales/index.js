@@ -54,45 +54,35 @@ const Sales = () => {
       paymentMethod: payment_method,
       date: new Date().toString(),
     };
-    //delete Item from Inventory
-    const res = await fetch("http://localhost:5000/delete-inventory", {
+
+    const result = await fetch("http://localhost:5000/customer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        huid: huid,
-      }),
+      body: JSON.stringify({ CustomerPhoneNumber: phone }),
     });
-    const resultDelete = await res.json();
-    if (resultDelete.status) {
-      const result = await fetch("http://localhost:5000/customer", {
+    const response = await result.json();
+    console.log(response);
+    if (response.status === false) {
+      const res = await fetch("http://localhost:5000/customer/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          CustomerFirstName: first_name,
+          CustomerLastName: last_name,
+          CustomerPhoneNumber: phone,
+          CustomerPancard: pan_number,
+        }),
       });
-      const response = await result.json();
-      if (!response.CustomerPhoneNumber) {
-        const res = await fetch("http://localhost:5000/customer/add", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            CustomerFirstName: first_name,
-            CustomerLastName: last_name,
-            CustomerPhoneNumber: phone,
-            CustomerPancard: pan_number,
-          }),
-        });
-        const result = await res.json();
-        if (result.success) {
-          alert("New Customer Added Successfully");
-        }
+      const result = await res.json();
+      if (result.success) {
+        alert("New Customer Added Successfully");
       }
     }
+
     //send data to create invoice
     //send data to create payment
 
@@ -105,7 +95,7 @@ const Sales = () => {
       body: JSON.stringify(data),
     });
     const result1 = await res1.json();
-    if (result1.status) {
+    if (result1.success) {
       alert("Sale Added Successfull");
     } else {
       alert("Sale Failed");
