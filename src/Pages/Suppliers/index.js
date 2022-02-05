@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 //Components
 import Navbar from "../../Components/Navbar";
 import Header from "../../Components/Header";
-
+//Icons
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIdCard } from "@fortawesome/free-solid-svg-icons";
+//Functions
+import { addSupplier, getSuppliers } from "../../data.service";
 
 const Suppliers = () => {
   const [data, setData] = useState([]);
@@ -24,18 +26,8 @@ const Suppliers = () => {
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/supplier", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const response = await res.json();
-        setData(response);
-      } catch (err) {
-        console.log(err);
-      }
+      const result = await getSuppliers();
+      setData(result);
     };
     getData();
   }, []);
@@ -52,18 +44,13 @@ const Suppliers = () => {
       pancard: pancard,
       itemSupplied: itemSupplied,
     };
-    try {
-      await fetch("http://localhost:5000/supplier", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      setShow(false);
-    } catch (err) {
-      console.log(err);
+    const result = await addSupplier(data);
+    if (result.success) {
+      alert("Supplier Added Successfully");
+    } else {
+      alert("Error Occured");
     }
+    setShow(false);
   };
 
   return (
@@ -342,7 +329,6 @@ const Suppliers = () => {
 
               <tbody>
                 {data.map((item, i) => {
-                  console.log(item);
                   return (
                     <tr key={i}>
                       <th>{i + 1}</th>

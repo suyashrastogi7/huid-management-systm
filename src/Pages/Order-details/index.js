@@ -6,35 +6,22 @@ import Header from "../../Components/Header";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Biller from "../../Components/Biller";
 
+//Functions
+import { deleteOrder, getOrderDetails } from "../../data.service";
+
 const OrderDetails = () => {
   const [detail, setDetail] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch("http://localhost:5000/getOrderDetails", {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-      const response = await res.json();
+      const response = await getOrderDetails();
       setDetail(response);
     };
     getData();
   }, []);
-  console.log(detail);
 
   const handleDelete = async (item) => {
-    const res = await fetch("http://localhost:5000/delete-order", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        huid: item.huid,
-      }),
-    });
-    const result = await res.json();
+    const result = await deleteOrder(item);
     if (result.status) {
       alert("Successfully Deleted");
     } else {

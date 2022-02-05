@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
 //Components
 import Navbar from "../../Components/Navbar";
 import Header from "../../Components/Header";
@@ -8,26 +9,21 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+//Functions
+import { getInventory } from "../../data.service";
+
 const Inventory = () => {
   const [data, setData] = useState([]);
-  console.log(data);
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/stock", {
-          method: "GET",
-        });
-        const result = await res.json();
-        setData(result);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getData();
-  }, []);
-
-  let history = useHistory();
   const [isActive, setIsActive] = useState(false);
+  let history = useHistory();
+
+  useEffect(() => {
+    const getInventoryData = async () => {
+      const result = await getInventory();
+      setData(result);
+    };
+    getInventoryData();
+  }, []);
 
   return (
     <div>
@@ -35,7 +31,7 @@ const Inventory = () => {
       <div className="is-flex">
         <Navbar />
         <div
-          class="column has-background-light"
+          className="column has-background-light"
           style={{ height: "85vh", overflowY: "scroll" }}
         >
           <div className=" has-background-white is-flex columns is-multiline is-mobile is-justify-content-space-between">
@@ -83,7 +79,7 @@ const Inventory = () => {
             </div>
           </div>
           <div className="hero has-background-white">
-            <table class="table is-bordered is-fullwidth is-hoverable">
+            <table className="table is-bordered is-fullwidth is-hoverable">
               <thead>
                 <tr>
                   <th>Index</th>
@@ -113,7 +109,6 @@ const Inventory = () => {
 
               <tbody>
                 {data.map((item, i) => {
-                  console.log(item);
                   return (
                     <tr key={i}>
                       <th>{i + 1}</th>

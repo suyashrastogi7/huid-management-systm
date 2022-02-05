@@ -30,13 +30,15 @@ const Login = () => {
     })
       .then(async (res) => {
         const result = await res.json();
+        console.log(result);
         if (result.success === false) {
           alert("Wrong Login Credentials");
         } else {
           if (result.first_login) {
-            localStorage.setItem("user", result);
             history.push("/company");
           } else {
+            localStorage.setItem("username", result.username);
+            localStorage.setItem("email", result.email);
             history.push("/");
           }
         }

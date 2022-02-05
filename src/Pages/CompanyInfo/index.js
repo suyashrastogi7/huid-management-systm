@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+//Icons
 import {
   faMap,
   faMonument,
@@ -16,50 +16,13 @@ import {
   faMapMarkerAlt,
   faStreetView,
 } from "@fortawesome/free-solid-svg-icons";
-
+//Static Data
+import states from "./staticData";
+//Functions
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { addCompanyInfo, changeFirstLogin } from "../../data.service";
 
 const CompanyInfo = () => {
-  const states = [
-    "Choose Item",
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jammu and Kashmir",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttarakhand",
-    "Uttar Pradesh",
-    "West Bengal",
-    "Andaman and Nicobar Islands",
-    "Chandigarh",
-    "Dadra and Nagar Haveli",
-    "Daman and Diu",
-    "Delhi",
-    "Lakshadweep",
-    "Puducherry",
-  ];
-
   const [company_name, setCompanyName] = useState("");
   const [shop_name, setShopName] = useState("");
   const [street_name, setStreetName] = useState("");
@@ -94,30 +57,15 @@ const CompanyInfo = () => {
       landline: landline,
       logo: image,
     };
-    const res = await fetch("http://localhost:5000/companyinfo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(details),
-    });
-    const data = await res.json();
-    if (data.success) {
-      const put = await fetch("http://localhost:5000/first-login", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: localStorage.getItem("user").username,
-          first_login: false,
-        }),
-      });
-      const putData = await put.json();
 
-      alert("Company Info Added Successfully");
-      localStorage.setItem("company_details", details);
-      history.push("/");
+    const data = await addCompanyInfo(details);
+    if (data.success) {
+      const result = await changeFirstLogin();
+      if (result.success) {
+        alert("Company Info Added Successfully");
+        localStorage.setItem("company_details", details);
+        history.push("/");
+      }
     } else {
       alert("Try Again");
     }

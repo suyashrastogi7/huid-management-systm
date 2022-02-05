@@ -24,6 +24,7 @@ import Taxes from "./Pages/Taxes";
 import Settings from "./Pages/Settings";
 import Biller from "./Components/Biller";
 import CompanyInfo from "./Pages/CompanyInfo";
+import Profile from "./Pages/Profile";
 
 class App extends Component {
   render() {
@@ -46,6 +47,9 @@ class App extends Component {
               </Route>
               <Route path="/bill">
                 <Bill />
+              </Route>
+              <Route path="/profile">
+                <Profile />
               </Route>
               <Route path="/customers">
                 <Customers />

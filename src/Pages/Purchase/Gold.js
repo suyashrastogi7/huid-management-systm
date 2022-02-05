@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+//Icons
 import { faRupeeSign } from "@fortawesome/free-solid-svg-icons";
 import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
 import { faLandmark } from "@fortawesome/free-solid-svg-icons";
@@ -7,8 +7,10 @@ import { faPercentage } from "@fortawesome/free-solid-svg-icons";
 import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+//Static Data
 import data2 from "./staticData";
+//Functions
+import { addGoldPurchase, getSuppliers } from "../../data.service";
 
 function Gold() {
   const [weight, setWeight] = useState("");
@@ -20,9 +22,7 @@ function Gold() {
   const [Purity, setPurity] = useState("");
   const [supplier, setSupplier] = useState("");
   const [data, setData] = useState([]);
-
   const handleReset = () => {};
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -36,33 +36,17 @@ function Gold() {
       tax: tax,
       supplier: supplier,
     };
-    try {
-      await fetch("http://localhost:5000/purchase", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    } catch (err) {
-      console.log(err);
+    const result = addGoldPurchase(data);
+    if (result.success) {
+      alert("Purchase Added Successfully.");
     }
   };
 
   const getData = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/supplier", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const response = await res.json();
-      setData(response);
-    } catch (err) {
-      console.log(err);
-    }
+    const result = await getSuppliers();
+    setData(result);
   };
+
   useEffect(() => {
     getData();
   }, []);

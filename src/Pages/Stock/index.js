@@ -3,9 +3,13 @@ import React, { useState } from "react";
 //Components
 import Navbar from "../../Components/Navbar";
 import Header from "../../Components/Header";
+//Data
 import data from "./staticData";
+//Icons
 import { faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//Functions
+import { addStock } from "../../data.service";
 
 const Stock = () => {
   const [jewelleryType, setJewelleryType] = useState("-");
@@ -80,17 +84,9 @@ const Stock = () => {
       silverWeight: SilverWeight,
       platinumWeight: platinumWeight,
     };
-    try {
-      await fetch("http://localhost:5000/stock", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    const result = addStock(data);
+    if (result.success) {
       handleReset();
-    } catch (err) {
-      console.log(err);
     }
   };
 

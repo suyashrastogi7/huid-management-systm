@@ -7,25 +7,21 @@ import Header from "../../Components/Header";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { getCustomers } from "../../data.service";
+
 const Customers = () => {
   const tableHeads = ["Serial No.", "Name", "Phone Number", "PAN Number"];
   const [customers, setCustomers] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const getCustomers = async () => {
-      const res = await fetch("http://localhost:5000/customers", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      setCustomers(data);
+    const getCustomer = async () => {
+      const result = await getCustomers();
+      setCustomers(result);
     };
-    getCustomers();
+    getCustomer();
   }, []);
-  console.log(customers);
+
   return (
     <div>
       <Header />

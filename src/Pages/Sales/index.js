@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "../../Components/Navbar";
 import Header from "../../Components/Header";
 import BarcodeReader from "react-barcode-reader";
-
+//Icons
 import { faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faPercentage } from "@fortawesome/free-solid-svg-icons";
@@ -12,9 +12,10 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faIdCardAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faRupeeSign } from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { findCustomer } from "../../data.service";
+//Functions
+import { addCustomer, addItemSold } from "../../data.service";
 const Sales = () => {
   const [huid, setHuid] = useState([]);
   const [temp, setTemp] = useState("");
@@ -54,55 +55,28 @@ const Sales = () => {
       paymentMethod: payment_method,
       date: new Date().toString(),
     };
-
-    const result = await fetch("http://localhost:5000/customer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ CustomerPhoneNumber: phone }),
-    });
-    const response = await result.json();
-    console.log(response);
+    //Finding customer by phone number and add customer if not found.
+    const response = await findCustomer(phone);
     if (response.status === false) {
-      const res = await fetch("http://localhost:5000/customer/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          CustomerFirstName: first_name,
-          CustomerLastName: last_name,
-          CustomerPhoneNumber: phone,
-          CustomerPancard: pan_number,
-        }),
+      const result = await addCustomer({
+        CustomerFirstName: first_name,
+        CustomerLastName: last_name,
+        CustomerPhoneNumber: phone,
+        CustomerPancard: pan_number,
       });
-      const result = await res.json();
       if (result.success) {
         alert("New Customer Added Successfully");
       }
     }
-
-    //send data to create invoice
     //send data to create payment
 
     //add this item top sold list
-    const res1 = await fetch("http://localhost:5000/add-sold-list", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const result1 = await res1.json();
-    if (result1.success) {
+    const result = await addItemSold(data);
+    if (result.success) {
       alert("Sale Added Successfull");
     } else {
       alert("Sale Failed");
     }
-    //add Customer to Customers Database if does not exist
-
-    //add to order Details
   };
 
   return (

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-
+//Static Data
 import data2 from "./staticData";
-
+//Icons
 import { faGem } from "@fortawesome/free-solid-svg-icons";
 import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
 import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//Functions
+import { addDiamondPurchase, getSuppliers } from "../../data.service";
 
 function Diamond() {
   const [stone_weight, setStoneWeight] = useState("");
@@ -16,7 +18,7 @@ function Diamond() {
   const [hallmark_id, setHallmarkId] = useState("");
   const [supplier, setSupplier] = useState("");
   const [data, setData] = useState([]);
-  const handleReset = () => {};
+
   const handleSubmitDiamond = async () => {
     const data = {
       purchaseType: "Diamond",
@@ -27,35 +29,20 @@ function Diamond() {
       color: Color,
       supplier: supplier,
     };
-    try {
-      await fetch("http://localhost:5000/purchase-diamond", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    } catch (err) {
-      console.log(err);
+    const result = await addDiamondPurchase(data);
+    if (result.success) {
+      alert("Purchase Added Successfully.");
     }
   };
-  const getData = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/supplier", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const response = await res.json();
-      setData(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const handleReset = () => {};
   useEffect(() => {
-    getData();
+    async function getSupplier() {
+      const result = await getSuppliers();
+      setData(result);
+    }
+    getSupplier();
   }, []);
+
   return (
     <div className="is-multiline">
       <h1 className="is-size-5 has-text-weight-bold">Diamond Purchase</h1>
