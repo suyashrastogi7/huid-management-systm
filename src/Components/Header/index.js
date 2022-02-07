@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import logo from "../../Images/HUID.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Notification from "./Notification";
 
 //import { faSearch } from '@fortawesome/free-solid-svg-icons'
 //import { faUsers } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +12,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const [view, setView] = useState(false);
+  const [notification, setNotification] = useState(false);
   console.log(view);
   const username = localStorage.getItem("username");
   return (
@@ -67,9 +69,20 @@ const Header = () => {
           </div>
         </div>
 
-        <a className="is-size-4 button is-white">
-          <FontAwesomeIcon icon={faBell} />
-        </a>
+        <div className="is-inline" onMouseLeave={() => setNotification(false)}>
+          <a
+            className="is-size-4 button is-white"
+            onMouseOver={() => setNotification(true)}
+          >
+            <FontAwesomeIcon icon={faBell} />
+          </a>
+          {notification ? (
+            <Notification />
+          ) : (
+            <div style={{ position: "absolute" }}></div>
+          )}
+        </div>
+
         <a href="/settings" className="is-size-4 button is-white">
           <FontAwesomeIcon icon={faCog} />
         </a>
